@@ -28,11 +28,11 @@ router.post('/register', async (req, res) => {
 
     await user.save();
 
-    res.json({ message: 'User registered successfully' });
+    return res.json({ message: 'User registered successfully' });
 
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: 'Server error' });
+    console.error('REGISTER error:', err);
+    return res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
 
@@ -41,27 +41,33 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    // 1) Find user by email
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
 
+    // 2) Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
 
+    // 3) Get JWT secret (with fallback so it never crashes)
+    const jwtSecret = process.env.JWT_SECRET || 'dev-fallback-secret-key';
+
+    // 4) Sign token
     const token = jwt.sign(
       { userId: user._id },
-      process.env.JWT_SECRET,
+      jwtSecret,
       { expiresIn: '7d' }
     );
 
-    res.json({ message: 'Login successful', token });
+    return res.json({ message: 'Login successful', token });
 
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: 'Server error' });
+    console.error('LOGIN error:', err);
+    return res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
 
