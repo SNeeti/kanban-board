@@ -1,0 +1,49 @@
+<div class="login-container">
+  <mat-card class="login-card">
+
+    <h2>Login</h2>
+
+    <form [formGroup]="form" (ngSubmit)="login()">
+
+      <!-- Email -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email">
+        <mat-error *ngIf="form.controls['email'].touched && form.controls['email'].invalid">
+          <span *ngIf="form.controls['email'].errors?.['required']">Email is required</span>
+          <span *ngIf="form.controls['email'].errors?.['email']">Invalid email format</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password">
+        <mat-error *ngIf="form.controls['password'].touched && form.controls['password'].invalid">
+          <span *ngIf="form.controls['password'].errors?.['required']">Password is required</span>
+          <span *ngIf="form.controls['password'].errors?.['minlength']">
+            Minimum 6 characters required
+          </span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Submit -->
+      <button
+        mat-raised-button
+        color="primary"
+        class="full-width"
+        [disabled]="form.invalid"
+        (click)="login()"
+      >
+        Login
+      </button>
+
+    </form>
+
+    <p class="register-link">
+      Don’t have an account?
+      <a routerLink="/register">Register</a>
+    </p>
+
+  </mat-card>
+</div>

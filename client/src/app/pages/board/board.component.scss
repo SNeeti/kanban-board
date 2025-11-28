@@ -1,0 +1,141 @@
+.board-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  background: #f5f6f8;
+  min-height: 100vh;
+}
+
+.board-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.board-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 900px) {
+  .board-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .board-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.column {
+  background: #ffffff;
+  padding: 0.75rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+
+  h3 {
+    margin: 0;
+    font-weight: 600;
+    color: #343434;
+    font-size: 1rem;
+  }
+}
+
+.in-progress-header h3 {
+  color: #1976d2;
+}
+
+.done-header h3 {
+  color: #2e7d32;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: #eceff1;
+}
+
+.add-btn {
+  width: 100%;
+  justify-content: flex-start;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+
+  mat-icon {
+    margin-right: 0.25rem;
+    font-size: 18px;
+  }
+}
+
+.task-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 120px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+/* CDK drag placeholder spacing */
+.cdk-drop-list-dragging .task-card:not(.cdk-drag-placeholder) {
+  transition: transform 200ms ease;
+}
+
+.task-card {
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  cursor: grab;
+  border: 1px solid #e0e0e0;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.task-card:active {
+  cursor: grabbing;
+}
+
+.task-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+  word-wrap: break-word;
+}
+
+.delete-btn {
+  margin-left: auto;
+}
+
+/* Keep this if you use it elsewhere */
+.full-width {
+  width: 100%;
+}

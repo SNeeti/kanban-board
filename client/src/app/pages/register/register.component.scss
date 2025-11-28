@@ -1,0 +1,36 @@
+.register-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-card {
+  width: 400px;
+  padding: 25px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.google-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.google-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.divider {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 14px;
+  opacity: 0.6;
+}

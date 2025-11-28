@@ -1,0 +1,126 @@
+<div class="board-wrapper">
+  <h2 class="board-title">My Kanban Board</h2>
+
+  <div class="board-container">
+    <!-- TO DO Column -->
+    <div class="column">
+      <div class="column-header">
+        <h3>To Do</h3>
+        <span class="badge">{{ todo.length }}</span>
+      </div>
+
+      <button
+        mat-stroked-button
+        color="primary"
+        class="add-btn"
+        (click)="openAddTaskDialog()"
+      >
+        <mat-icon>add</mat-icon>
+        New Task
+      </button>
+
+      <div
+        cdkDropList
+        id="todoList"
+        #todoList="cdkDropList"
+        [cdkDropListData]="todo"
+        [cdkDropListConnectedTo]="['progressList', 'doneList']"
+        (cdkDropListDropped)="drop($event)"
+        class="task-list"
+      >
+        <mat-card
+          class="task-card"
+          *ngFor="let task of todo; let i = index"
+          cdkDrag
+        >
+          <div class="task-main">
+            <div class="task-title">{{ task.title }}</div>
+          </div>
+
+          <button
+            mat-icon-button
+            class="delete-btn"
+            aria-label="Delete task"
+            (click)="deleteTask('todo', i, task); $event.stopPropagation()"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- IN PROGRESS Column -->
+    <div class="column">
+      <div class="column-header in-progress-header">
+        <h3>In Progress</h3>
+        <span class="badge">{{ inProgress.length }}</span>
+      </div>
+
+      <div
+        cdkDropList
+        id="progressList"
+        #progressList="cdkDropList"
+        [cdkDropListData]="inProgress"
+        [cdkDropListConnectedTo]="['todoList', 'doneList']"
+        (cdkDropListDropped)="drop($event)"
+        class="task-list"
+      >
+        <mat-card
+          class="task-card"
+          *ngFor="let task of inProgress; let i = index"
+          cdkDrag
+        >
+          <div class="task-main">
+            <div class="task-title">{{ task.title }}</div>
+          </div>
+
+          <button
+            mat-icon-button
+            class="delete-btn"
+            aria-label="Delete task"
+            (click)="deleteTask('inProgress', i, task); $event.stopPropagation()"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- DONE Column -->
+    <div class="column">
+      <div class="column-header done-header">
+        <h3>Done</h3>
+        <span class="badge">{{ done.length }}</span>
+      </div>
+
+      <div
+        cdkDropList
+        id="doneList"
+        #doneList="cdkDropList"
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="['todoList', 'progressList']"
+        (cdkDropListDropped)="drop($event)"
+        class="task-list"
+      >
+        <mat-card
+          class="task-card"
+          *ngFor="let task of done; let i = index"
+          cdkDrag
+        >
+          <div class="task-main">
+            <div class="task-title">{{ task.title }}</div>
+          </div>
+
+          <button
+            mat-icon-button
+            class="delete-btn"
+            aria-label="Delete task"
+            (click)="deleteTask('done', i, task); $event.stopPropagation()"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
