@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  private API_URL = 'http://localhost:5000/api/auth';
+  private API_URL = 'https://kanban-board-backend-gvqf.onrender.com/api/auth';
 
   constructor(private http: HttpClient) {}
 

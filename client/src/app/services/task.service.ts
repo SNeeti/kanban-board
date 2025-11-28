@@ -7,16 +7,27 @@ import { Observable } from 'rxjs';
 })
 export class TaskService {
 
-  private API_URL = 'http://localhost:5000/api/tasks';
+  private API_URL = 'https://kanban-board-backend-gvqf.onrender.com/api/tasks';
 
   constructor(private http: HttpClient) {}
 
+  // Safely build auth headers (works with SSR / no window on server)
   private getAuthHeaders() {
-    const token = localStorage.getItem('token');
+    let token = '';
+
+    // Guard against SSR / Node where window & localStorage don't exist
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      token = localStorage.getItem('token') || '';
+    }
+
+    const headersConfig: Record<string, string> = {};
+
+    if (token) {
+      headersConfig['authorization'] = token;
+    }
+
     return {
-      headers: new HttpHeaders({
-        'authorization': token || ''
-      })
+      headers: new HttpHeaders(headersConfig)
     };
   }
 
